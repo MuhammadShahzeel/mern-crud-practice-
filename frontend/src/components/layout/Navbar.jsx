@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
-import { IoMoon } from "react-icons/io5";
-import { LuSun } from "react-icons/lu";
+
 import { FiPlusSquare } from "react-icons/fi"; // NEW: react-icons plus square
-import { useState } from "react";
+
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  
 
-  const toggleColorMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark');
-  };
+  
 
   return (
     <div className="max-w-[1140px] px-4 mx-auto">
@@ -22,17 +18,14 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-2 mt-2 sm:mt-0">
           <Link to="/create">
-            <button className="p-2 bg-gray-200 dark:bg-gray-700 rounded-md">
-              <FiPlusSquare size={20} />
-            </button>
+          <button className="flex items-center gap-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-md">
+  <span className="hidden sm:inline">Create Product</span>
+  <FiPlusSquare size={20} />
+</button>
+
           </Link>
 
-          <button 
-            onClick={toggleColorMode}
-            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-md"
-          >
-            {darkMode ? <LuSun size={20} /> : <IoMoon size={20} />}
-          </button>
+      
         </div>
 
       </div>
