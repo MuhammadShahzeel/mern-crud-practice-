@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import { useProduct } from '../context/ProductContext';
-
+import { ToastContainer, toast } from 'react-toastify';
 function CreatePage() {
   const { createProduct } = useProduct();
 
@@ -22,16 +22,50 @@ function CreatePage() {
     const res = await createProduct(newProduct);
 
     if (res.success) {
-      console.log(res.message);
+      toast.success('Product added successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+       
+        });
       
       setNewProduct({ name: '', price: '', image: '' });
     } else {
+      toast.error(`Error!`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+       
+        });
       console.error(res.message);
     }
   };
 
   return (
     <div className="max-w-[1140px] px-4 mx-auto py-8">
+      <ToastContainer
+position="top-right"
+autoClose={2000}
+hideProgressBar={true}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+
+/>
       <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
         Add New Product
       </h2>
