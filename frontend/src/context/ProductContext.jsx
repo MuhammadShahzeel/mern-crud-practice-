@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { addProduct } from "../api/ProductApi.js";
+import { addProduct,deleteProduct } from "../api/ProductApi.js";
 
 const ProductContext = createContext();
 
@@ -25,7 +25,26 @@ export const ProductProvider = ({ children }) => {
       console.error(error);
       return { success: false, message: "Server error" };
     }
+};
+
+  // Delete Product
+  const removeProduct = async (id) => {
+    try {
+      const response = await deleteProduct(id);
+      if (response.status === 200) {
+        setProducts((prev) => prev.filter((product) => product._id !== id));
+        return { success: true, message: "Product deleted successfully" };
+      } else {
+        return { success: false, message: "Failed to delete product" };
+      }
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: "Server error" };
+    }
   };
+
+
+
 
 
 
