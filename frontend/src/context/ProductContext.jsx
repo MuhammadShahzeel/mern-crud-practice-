@@ -1,5 +1,6 @@
 import { createContext, useContext, useState,useCallback } from "react";
 import { addProduct,deleteProduct,getProducts } from "../api/ProductApi.js";
+import { toast } from "react-toastify";
 
 
 
@@ -35,6 +36,11 @@ export const ProductProvider = ({ children }) => {
       const response = await deleteProduct(id);
       if (response.status === 200) {
         setProducts((prev) => prev.filter((product) => product._id !== id));
+        toast.success("Product deleted successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
         return { success: true, message: "Product deleted successfully" };
       } else {
         return { success: false, message: "Failed to delete product" };

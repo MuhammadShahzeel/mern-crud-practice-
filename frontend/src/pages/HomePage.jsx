@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useProduct } from '../context/ProductContext';
 import ProductCard from '../components/layout/ProductCard';
 import { FiPackage } from 'react-icons/fi';
+import { ToastContainer } from 'react-toastify';
 
 const HomePage = () => {
   const { products, fetchProducts } = useProduct();
@@ -14,7 +15,9 @@ const HomePage = () => {
   }, [fetchProducts]);
 
   return (
+
     <div className="max-w-[1140px] px-4 mx-auto py-8">
+      <ToastContainer/>
       <div className="flex items-center justify-center mb-8">
         <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent flex items-center">
           <FiPackage className="mr-2 text-blue-500" />
