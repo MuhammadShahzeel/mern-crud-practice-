@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useProduct } from "../context/ProductContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { FiSave, FiImage, FiDollarSign, FiPackage } from "react-icons/fi";
 
 function CreatePage() {
@@ -21,47 +21,11 @@ function CreatePage() {
   };
 
   const handleAddProduct = async () => {
-    try {
-      const res = await createProduct(newProduct);
+    
+      await createProduct(newProduct);
 
-      if (res.success) {
-        toast.success("Product added successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
 
-        setNewProduct({ name: "", price: "", image: "" });
-      } else {
-        toast.error(res.message || "Error adding product", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    } catch (error) {
-      toast.error("An error occurred", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      console.error(error);
-    }
+   
   };
 
   return (

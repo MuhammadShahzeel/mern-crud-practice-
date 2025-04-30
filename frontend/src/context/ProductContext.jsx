@@ -21,10 +21,31 @@ export const ProductProvider = ({ children }) => {
      
 
       const createdProduct = response.data.product;
+      
 
       setProducts((prev) => [...prev, createdProduct]);
+      toast.success("Product created successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      
+        theme: "dark",
+      });
       return { success: true, message: "Product created successfully" };
     } catch (error) {
+      toast.error("Failed to create product", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      
+        theme: "dark",
+      });
       console.error(error);
       return { success: false, message: "Server error" };
     }
@@ -39,10 +60,20 @@ export const ProductProvider = ({ children }) => {
         toast.success("Product deleted successfully!", {
           position: "top-right",
           autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
           theme: "dark",
         });
         return { success: true, message: "Product deleted successfully" };
       } else {
+        toast.error("Failed to delete product", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+         console.error(response.data.message);
         return { success: false, message: "Failed to delete product" };
       }
     } catch (error) {
