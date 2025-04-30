@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { addProduct,deleteProduct } from "../api/ProductApi.js";
+import { createContext, useContext, useState,useCallback } from "react";
+import { addProduct,deleteProduct,getProducts } from "../api/ProductApi.js";
 
 
 
@@ -45,13 +45,28 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const fetchProducts = useCallback(async () => {
+    try {
+      const response = await getProducts();
+      if (response.status === 200) {
+        const products = response.data.products;
+        setProducts(products);
+        return { success: true, message: "Products found" };
+      } else {
+        return { success: false, message: "Products not found" };
+      }
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: "Server error" };
+    }
+  }, []);
 
 
 
 
 
   return (
-    <ProductContext.Provider value={{ products, createProduct }}>
+    <ProductContext.Provider value={{ products, createProduct, removeProduct,fetchProducts }}>
       {children}
     </ProductContext.Provider>
   );
