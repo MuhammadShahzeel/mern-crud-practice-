@@ -5,11 +5,15 @@ import './index.css' // tailwind import
 import { ProductProvider } from "./context/ProductContext";
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ProductProvider>
 
+      
+
       <App />
+
     </ProductProvider>
 
 

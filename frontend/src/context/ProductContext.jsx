@@ -1,5 +1,5 @@
 import { createContext, useContext, useState,useCallback } from "react";
-import { addProduct,deleteProduct,getProducts } from "../api/ProductApi.js";
+import { addProduct,deleteProduct,getProducts ,updateProduct} from "../api/ProductApi.js";
 import { toast } from "react-toastify";
 
 
@@ -99,11 +99,64 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
 
+  //update product
+
+  const updateAProduct = async (id,newData) => {
+
+    try {
+      const response = await updateProduct(id,newData);
+      if (response.status===200) {
+        
+        const updatedProduct = response.data.updatedProduct;
+              setProducts((prev) => [...prev, updatedProduct]);
+              toast.success("Product updated successfully!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+              
+                theme: "dark",
+              });
+              return { success: true, message: "Product updated successfully" };
+
+        
+      }
+        
+      else {
+        toast.error("Failed to update product", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        
+          theme: "dark",
+        });
+        
+        return { success: false, message: "Can't update" };
+
+        
+      }
+     
+
+      
+    } catch (error) {
+      
+      console.error(error);
+      return { success: false, message: "Server error" };
+    }
+};
+
+
+
 
 
 
   return (
-    <ProductContext.Provider value={{ products, createProduct, removeProduct,fetchProducts }}>
+    <ProductContext.Provider value={{ products, createProduct, removeProduct,fetchProducts,updateAProduct }}>
       {children}
     </ProductContext.Provider>
   );
