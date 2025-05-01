@@ -5,22 +5,18 @@ import { useProduct } from '../context/ProductContext';
 function UpdateProductModal({ isOpen, onClose, product }) {
 
   const { updateAProduct } = useProduct();
-  const [formData, setFormData] = useState({
-    name: product?.name || "",
-    price: product?.price || "",
-    image: product?.image || ""
-  });
+  const [updatedProduct, setUpdatedProduct] = useState(product);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setUpdatedProduct(prev => ({
       ...prev,
       [name]: value
     }));
   };
 
   const handleSubmit =  async() => {
-    await updateAProduct(product._id,formData)
+    await updateAProduct(product._id,updatedProduct)
 
     onClose();
   };
@@ -49,7 +45,7 @@ function UpdateProductModal({ isOpen, onClose, product }) {
             </div>
             <input
               name="name"
-              value={formData.name}
+              value={updatedProduct.name}
               onChange={handleChange}
               placeholder="Product Name"
               className="pl-10 border border-gray-700 p-3 w-full rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
@@ -62,7 +58,7 @@ function UpdateProductModal({ isOpen, onClose, product }) {
             </div>
             <input
               name="price"
-              value={formData.price}
+              value={updatedProduct.price}
               onChange={handleChange}
               placeholder="Product Price"
               type="number"
@@ -76,7 +72,7 @@ function UpdateProductModal({ isOpen, onClose, product }) {
             </div>
             <input
               name="image"
-              value={formData.image}
+              value={updatedProduct.image}
               onChange={handleChange}
               placeholder="Image URL"
               className="pl-10 border border-gray-700 p-3 w-full rounded-md bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"

@@ -23,6 +23,11 @@ function CreatePage() {
   const handleAddProduct = async () => {
     
       await createProduct(newProduct);
+      setNewProduct({
+        name: "",
+        price: "",
+        image: "",
+      });
 
 
    

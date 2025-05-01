@@ -100,31 +100,25 @@ export const ProductProvider = ({ children }) => {
 
 
   //update product
-
-  const updateAProduct = async (id,newData) => {
-
+  const updateAProduct = async (id, updatedProduct) => {
     try {
-      const response = await updateProduct(id,newData);
-      if (response.status===200) {
-        
-        const updatedProduct = response.data.updatedProduct;
-              setProducts((prev) => [...prev, updatedProduct]);
-              toast.success("Product updated successfully!", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-              
-                theme: "dark",
-              });
-              return { success: true, message: "Product updated successfully" };
-
-        
-      }
-        
-      else {
+      const response = await updateProduct(id, updatedProduct);
+      if (response.status === 200) {
+        updatedProduct = response.data.product;
+        setProducts((prev) =>
+          prev.map((product) => (product._id === id ? updatedProduct : product))
+        );
+        toast.success("Product updated successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+        return { success: true, message: "Product updated successfully" };
+      } else {
         toast.error("Failed to update product", {
           position: "top-right",
           autoClose: 3000,
@@ -132,24 +126,17 @@ export const ProductProvider = ({ children }) => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-        
           theme: "dark",
         });
-        
-        return { success: false, message: "Can't update" };
-
-        
+        return { success: false, message: "Failed to update product" };
       }
-     
-
-      
     } catch (error) {
-      
       console.error(error);
       return { success: false, message: "Server error" };
     }
-};
+  };
 
+  
 
 
 
