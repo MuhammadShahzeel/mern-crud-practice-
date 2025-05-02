@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create Axios Instance
 const api = axios.create({
-  baseURL: "/api", 
+  baseURL: "http://localhost:5000/api", // Base URL for the API
 });
 
 // Create Product
