@@ -23,4 +23,4 @@ export const deleteProduct = (id) => {
 // Update Product
 export const updateProduct = (id, data) => {
   return api.put(`/products/${id}`, data);
-};
+};     
